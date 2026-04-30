@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { Package } from './packages/package.entity';
+import { PackageEventsController } from './package-events.controller';
 
 @Module({
   imports: [
@@ -22,7 +23,7 @@ import { Package } from './packages/package.entity';
       synchronize: true,
     }),
   ],
-  controllers: [AppController],
+  controllers: [AppController, PackageEventsController],
   providers: [AppService],
 })
 export class AppModule {}
