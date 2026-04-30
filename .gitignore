@@ -1,0 +1,80 @@
+# =========================
+# Node / NestJS
+# =========================
+node_modules/
+*/node_modules/
+
+dist/
+*/dist/
+
+build/
+*/build/
+
+coverage/
+*/coverage/
+
+# =========================
+# Environment variables
+# =========================
+.env
+.env.*
+*/.env
+*/.env.*
+
+# Pero permitimos archivos de ejemplo
+!.env.example
+!*/.env.example
+
+# =========================
+# Logs
+# =========================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# =========================
+# TypeScript
+# =========================
+*.tsbuildinfo
+
+# =========================
+# OS / Editor
+# =========================
+.DS_Store
+Thumbs.db
+
+.vscode/
+.idea/
+
+# Si querés compartir configuraciones recomendadas de VSCode,
+# podés comentar la línea .vscode/ y versionar solo settings útiles.
+
+# =========================
+# Docker / local data
+# =========================
+.pgdata/
+redis-data/
+
+# =========================
+# Testing / cache
+# =========================
+.nyc_output/
+.cache/
+.tmp/
+temp/
+tmp/
+
+# =========================
+# Package managers
+# =========================
+.pnpm-store/
+.yarn/
+.yarnrc.yml
+
+# =========================
+# Optional: generated files
+# =========================
+*.local
