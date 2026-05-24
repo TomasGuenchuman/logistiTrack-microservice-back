@@ -3,8 +3,8 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { Package } from './packages/package.entity';
 import { PackageEventsController } from './package-events.controller';
+import { PackagesModule } from './package/package.module';
 
 @Module({
   imports: [
@@ -19,9 +19,11 @@ import { PackageEventsController } from './package-events.controller';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
-      entities: [Package],
+      autoLoadEntities: true,
       synchronize: true,
     }),
+
+    PackagesModule,
   ],
   controllers: [AppController, PackageEventsController],
   providers: [AppService],
