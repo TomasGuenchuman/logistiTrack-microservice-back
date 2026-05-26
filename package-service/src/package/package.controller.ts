@@ -38,6 +38,11 @@ export class PackagesController {
     return this.packagesService.findByTrackingCode(trackingCode);
   }
 
+  @Get('courier/:courierId')
+  findByCourierId(@Param('courierId', new ParseUUIDPipe()) courierId: string) {
+    return this.packagesService.findByCourierId(courierId);
+  }
+
   @Patch(':id')
   update(
     @Param('id', new ParseUUIDPipe()) id: string,
@@ -52,6 +57,11 @@ export class PackagesController {
     @Body() updatePackageStatusDto: UpdatePackageStatusDto,
   ) {
     return this.packagesService.updateStatus(id, updatePackageStatusDto);
+  }
+
+  @Patch(':id/delivered')
+  markAsDelivered(@Param('id', new ParseUUIDPipe()) id: string) {
+    return this.packagesService.markAsDelivered(id);
   }
 
   @Delete(':id')

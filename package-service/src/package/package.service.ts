@@ -6,7 +6,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { Package } from './entities/package.entity';
+import { Package, PackageStatus } from './entities/package.entity';
 import { CreatePackageDto } from './dto/create-package.dto';
 import { UpdatePackageDto } from './dto/update-package.dto';
 import { UpdatePackageStatusDto } from './dto/update-package-status.dto';
@@ -117,5 +117,28 @@ export class PackagesService {
     const packageFound = await this.findOne(id);
 
     await this.packageRepository.remove(packageFound);
+  }
+
+  async findByCourierId(courierId: string): Promise<Package[]> {
+    return this.packageRepository.find({
+      where: {
+        courierId,
+      },
+      order: {
+        createdAt: 'DESC',
+      },
+    });
+  }
+
+  async markAsDelivered(id: string): Promise<Package> {
+    const packageFound = await this.findOne(id);
+
+    if (packageFound.status === PackageStatus.DELIVERED) {
+      return packageFound;
+    }
+
+    packageFound.status = PackageStatus.DELIVERED;
+
+    return this.packageRepository.save(packageFound);
   }
 }
