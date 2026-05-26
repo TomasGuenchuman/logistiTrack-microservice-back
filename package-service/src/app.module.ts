@@ -3,7 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { PackageEventsController } from './package-events.controller';
+import { PackageEventsController } from './package/package-events.controller';
 import { PackagesModule } from './package/package.module';
 
 @Module({
