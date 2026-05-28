@@ -1,6 +1,14 @@
 import { Controller, Get, Inject } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 
+type DeliveryVerifiedEvent = {
+  orderId: string;
+  courierId: string;
+  verificationId: string;
+  status: 'SUCCESS';
+  verifiedAt?: string;
+};
+
 @Controller()
 export class AppController {
   constructor(
@@ -10,9 +18,11 @@ export class AppController {
 
   @Get('test-redis')
   testRedis() {
-    const payload = {
-      packageId: 123,
-      status: 'DELIVERED',
+    const payload: DeliveryVerifiedEvent = {
+      orderId: '9ac14219-addd-4f4c-94a0-11ad4d7057bc',
+      courierId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+      verificationId: 'v1a2b3c4-9999-8888-7777-fedcbafedcba',
+      status: 'SUCCESS',
       verifiedAt: new Date().toISOString(),
     };
 
