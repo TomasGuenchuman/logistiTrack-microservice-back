@@ -1,5 +1,6 @@
 import { Controller, Get, Inject } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
+import { AppService } from './app.service';
 
 type DeliveryVerifiedEvent = {
   orderId: string;
@@ -14,7 +15,13 @@ export class AppController {
   constructor(
     @Inject('PACKAGE_SERVICE')
     private readonly packageClient: ClientProxy,
+    private readonly appService: AppService,
   ) {}
+
+  @Get()
+  getHello(): string {
+    return this.appService.getHello();
+  }
 
   @Get('test-redis')
   testRedis() {

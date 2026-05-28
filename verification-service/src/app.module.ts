@@ -4,7 +4,8 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { Verification } from './verifications/verification.entity';
+import { Verification } from './verification/entities/verification.entity';
+import { VerificationsModule } from './verification/verification.module';
 
 @Module({
   imports: [
@@ -33,6 +34,8 @@ import { Verification } from './verifications/verification.entity';
       entities: [Verification],
       synchronize: true,
     }),
+
+    VerificationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

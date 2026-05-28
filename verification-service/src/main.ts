@@ -1,8 +1,27 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  await app.listen(process.env.PORT ?? 3000);
+
+  // Configuración de las opciones de Swagger
+  const config = new DocumentBuilder()
+    .setTitle('Mi API de NestJS')
+    .setDescription('Descripción de los endpoints')
+    .setVersion('1.0')
+    .build();
+
+  const document = SwaggerModule.createDocument(app, config);
+
+  // ¡AQUÍ SE DEFINE LA RUTA!
+  // El primer argumento ('api') es el prefijo de la URL
+  SwaggerModule.setup('api', app, document);
+
+  const port = process.env.PORT || 3002;
+  await app.listen(port);
+
+  console.log(`package-service HTTP running on http://localhost:${port}`);
+  console.log(`verification-service EMIT Redis events`);
 }
 bootstrap();
