@@ -44,4 +44,36 @@ export class AuthService {
       }
     };
   }
+
+  async refreshToken(refreshToken: string) {
+    try {
+      // verifico el token sea valido y desencripto los datos los datos
+      const payload = await this.jwtService.verifyAsync(refreshToken);
+
+      // busco en Redis si la sesión de este usuario sigue activa
+      const activeSession = await this.redisService.getActiveSession(payload.sub.toString());
+
+      // comparo si la sesion cerró o no coincide, y si es asi bloqueo el paso
+      if (!activeSession || activeSession !== payload.sessionId) {
+        throw new UnauthorizedException('Sesión inválida o revocada');
+      }
+
+      // si todo esta bien, genero el nuevo access token de 40 minutos
+      const newPayload = { sub: payload.sub, email: payload.email, sessionId: payload.sessionId };
+      const newAccessToken = await this.jwtService.signAsync(newPayload, { expiresIn: '40m' });
+
+      return {
+        access_token: newAccessToken,
+      };
+    } catch (error) {
+      throw new UnauthorizedException('Refresh token inválido o expirado');
+    }
+  }
+
+  async logout(userId: string) {
+    // borro la sesion de Redis para invalidar cualquier refresh token
+    await this.redisService.deleteSession(userId.toString());
+    
+    return { message: 'Sesión cerrada exitosamente' };
+  }
 }

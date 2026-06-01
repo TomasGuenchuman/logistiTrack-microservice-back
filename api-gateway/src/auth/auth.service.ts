@@ -33,6 +33,31 @@ export class AuthService {
     }
   }
 
+  async refreshToken(refreshData: any) {
+    try {
+      const response = await firstValueFrom(
+        // le pega a la ruta /auth/refresh del microservicio
+        this.httpService.post(`${this.authServiceUrl}/auth/refresh`, refreshData),
+      );
+
+      return response.data;
+    } catch (error) {
+      this.handleHttpError(error);
+    }
+  }
+
+  async logout(logoutData: any) {
+    try {
+      const response = await firstValueFrom(
+        // le pega a la ruta /auth/logout del microservicio
+        this.httpService.post(`${this.authServiceUrl}/auth/logout`, logoutData),
+      );
+      return response.data;
+    } catch (error) {
+      this.handleHttpError(error);
+    }
+  }
+
   private handleHttpError(error: unknown): never {
     const axiosError = error as AxiosError<any>;
 
