@@ -1,26 +1,62 @@
-import { Injectable } from '@nestjs/common';
-import { CreateAuthDto } from './dto/create-auth.dto';
-import { UpdateAuthDto } from './dto/update-auth.dto';
+import { Injectable, BadGatewayException, UnauthorizedException } from '@nestjs/common';
+import { HttpService } from '@nestjs/axios';
+import { ConfigService } from '@nestjs/config';
+import { AxiosError } from 'axios';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class AuthService {
-  create(createAuthDto: CreateAuthDto) {
-    return 'This action adds a new auth';
+
+  private readonly authServiceUrl: string;
+
+  constructor(
+    private readonly httpService: HttpService,
+    private readonly configService: ConfigService,
+  ) {
+    const url = this.configService.get<string>('AUTH_SERVICE_URL');
+    if (!url) {
+      throw new Error('AUTH_SERVICE_URL is not defined');
+    }
+
+    this.authServiceUrl = url;
   }
 
-  findAll() {
-    return `This action returns all auth`;
+  async login(loginData: any) {
+    try {
+      const response = await firstValueFrom(
+        this.httpService.post(`${this.authServiceUrl}/auth/login`, loginData),
+      );
+
+      return response.data;
+    } catch (error) {
+      this.handleHttpError(error);
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} auth`;
-  }
+  private handleHttpError(error: unknown): never {
+    const axiosError = error as AxiosError<any>;
 
-  update(id: number, updateAuthDto: UpdateAuthDto) {
-    return `This action updates a #${id} auth`;
-  }
+    if (axiosError.response) {
+      const status = axiosError.response.status;
+      const message =
+        axiosError.response.data?.message ??
+        axiosError.response.data ??
+        'Error from auth-service';
 
-  remove(id: number) {
-    return `This action removes a #${id} auth`;
+      // si el microservicio dice que la contraseña está mal (401), aviso al cliente
+      if (status === 401) {
+        throw new UnauthorizedException(message);
+      }
+
+      throw new BadGatewayException({
+        message: 'Error communicating with auth-service',
+        authServiceStatusCode: status,
+        authServiceMessage: message,
+      });
+    }
+
+    throw new BadGatewayException(
+      'auth-service is not available or did not respond',
+    );
   }
 }
