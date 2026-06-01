@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { RedisModule } from './redis/redis.module';
 import { User } from './users/user.entity';
 
 @Module({
@@ -22,6 +23,7 @@ import { User } from './users/user.entity';
       synchronize: true,
     }),
     
+    RedisModule,
     UsersModule,
     AuthModule,
   ],
