@@ -16,6 +16,7 @@ async function bootstrap() {
     .setTitle('LogistiTrack API Gateway')
     .setDescription('API Gateway documentation for LogistiTrack microservices')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

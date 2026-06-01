@@ -17,7 +17,9 @@ import { CreateVerificationDto } from './dto/create-verification.dto';
 import { UpdateVerificationDto } from './dto/update-verification.dto';
 import { UpdateVerificationStatusDto } from './dto/update-verification-status.dto';
 import { AuthGuard } from '../auth/guards/auth.guard';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @UseGuards(AuthGuard)
 @Controller('verifications')
 export class VerificationController {

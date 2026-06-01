@@ -17,7 +17,9 @@ import { CreatePackageDto } from './dto/create-package.dto';
 import { UpdatePackageDto } from './dto/update-package.dto';
 import { UpdatePackageStatusDto } from './dto/update-package-status.dto';
 import { AuthGuard } from '../auth/guards/auth.guard';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @UseGuards(AuthGuard)
 @Controller('packages')
 export class PackageController {
