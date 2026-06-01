@@ -9,13 +9,16 @@ import {
   ParseUUIDPipe,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 
 import { PackageService } from './package.service';
 import { CreatePackageDto } from './dto/create-package.dto';
 import { UpdatePackageDto } from './dto/update-package.dto';
 import { UpdatePackageStatusDto } from './dto/update-package-status.dto';
+import { AuthGuard } from '../auth/guards/auth.guard';
 
+@UseGuards(AuthGuard)
 @Controller('packages')
 export class PackageController {
   constructor(private readonly packageService: PackageService) {}

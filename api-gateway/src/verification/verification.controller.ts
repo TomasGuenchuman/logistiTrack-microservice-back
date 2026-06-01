@@ -9,13 +9,16 @@ import {
   ParseUUIDPipe,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 
 import { VerificationService } from './verification.service';
 import { CreateVerificationDto } from './dto/create-verification.dto';
 import { UpdateVerificationDto } from './dto/update-verification.dto';
 import { UpdateVerificationStatusDto } from './dto/update-verification-status.dto';
+import { AuthGuard } from '../auth/guards/auth.guard';
 
+@UseGuards(AuthGuard)
 @Controller('verifications')
 export class VerificationController {
   constructor(private readonly verificationService: VerificationService) {}
