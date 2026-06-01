@@ -15,10 +15,10 @@ import { RedisModule } from './redis/redis.module';
     }),
     RedisModule,
     JwtModule.registerAsync({
+      global: true,
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => ({
-        global: true, 
         secret: configService.get<string>('JWT_SECRET'),
       }),
     }),
