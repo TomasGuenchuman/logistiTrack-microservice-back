@@ -192,8 +192,6 @@ REDIS_PORT=6379
 ### api-gateway/.env
 
 ```env
-
-```
 PORT=3000
 
 AUTH_SERVICE_URL=http://localhost:3001
@@ -203,6 +201,7 @@ VERIFICATION_SERVICE_URL=http://localhost:3003
 REDIS_URL=redis://localhost:6379
 
 JWT_SECRET=clave_secreta_jwt
+```
 ---
 
 ## 7. Levantar infraestructura con Docker
