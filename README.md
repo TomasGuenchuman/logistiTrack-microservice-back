@@ -136,6 +136,7 @@ cd ..
 ## 6. Variables de entorno
 
 Cada microservicio debe tener su propio archivo `.env`.
+También la api gateway debe tener su propio archivo `.env`.
 
 Los archivos `.env` reales no se suben a GitHub. Para eso existen los archivos `.env.example`.
 
@@ -152,6 +153,10 @@ DB_DATABASE=auth_db
 
 REDIS_HOST=localhost
 REDIS_PORT=6379
+
+REDIS_URL=redis://localhost:6379
+
+JWT_SECRET=clave_secreta_jwt
 ```
 
 ### package-service/.env
@@ -184,6 +189,20 @@ REDIS_HOST=localhost
 REDIS_PORT=6379
 ```
 
+### api-gateway/.env
+
+```env
+
+```
+PORT=3000
+
+AUTH_SERVICE_URL=http://localhost:3001
+PACKAGE_SERVICE_URL=http://localhost:3002
+VERIFICATION_SERVICE_URL=http://localhost:3003
+
+REDIS_URL=redis://localhost:6379
+
+JWT_SECRET=clave_secreta_jwt
 ---
 
 ## 7. Levantar infraestructura con Docker
