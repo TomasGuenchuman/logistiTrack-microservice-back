@@ -129,6 +129,10 @@ cd ..
 cd verification-service
 npm install
 cd ..
+
+cd api-gateway
+npm install
+cd ..
 ```
 
 ---
@@ -202,6 +206,7 @@ REDIS_URL=redis://localhost:6379
 
 JWT_SECRET=clave_secreta_jwt
 ```
+
 ---
 
 ## 7. Levantar infraestructura con Docker
@@ -295,6 +300,19 @@ El servicio debería quedar disponible en:
 
 ```txt
 http://localhost:3003
+```
+
+### Terminal 4 - api-gateway
+
+```bash
+cd api-gateway
+npm run start:dev
+```
+
+El servicio debería quedar disponible en:
+
+```txt
+http://localhost:3000
 ```
 
 ---
@@ -531,7 +549,7 @@ Microservicios NestJS:
 Durante el desarrollo se puede usar TypeORM con:
 
 ```ts
-synchronize: true
+synchronize: true;
 ```
 
 Esto permite que TypeORM cree o actualice las tablas automáticamente a partir de las entidades.

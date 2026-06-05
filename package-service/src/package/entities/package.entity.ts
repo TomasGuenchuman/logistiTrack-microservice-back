@@ -42,6 +42,12 @@ export class Package {
   address!: string;
 
   @Column({
+    name: 'address_detail',
+    type: 'varchar',
+  })
+  addressDetail!: string;
+
+  @Column({
     type: 'enum',
     enum: PackageStatus,
     default: PackageStatus.PENDING,
@@ -53,6 +59,12 @@ export class Package {
     type: 'uuid',
   })
   courierId!: string;
+
+  @Column({
+    name: 'delivered_at',
+    type: 'timestamp',
+  })
+  deliveredAt!: Date;
 
   @CreateDateColumn({
     name: 'created_at',
