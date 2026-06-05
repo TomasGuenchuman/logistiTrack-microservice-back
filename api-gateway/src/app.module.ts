@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { PackageModule } from './package/package.module';
 import { VerificationModule } from './verification/verification.module';
 import { RedisModule } from './redis/redis.module';
+import { NotificationsGateway } from './notifications/notifications.gateway';
 
 @Module({
   imports: [
@@ -27,6 +28,6 @@ import { RedisModule } from './redis/redis.module';
     VerificationModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, NotificationsGateway],
 })
 export class AppModule {}
