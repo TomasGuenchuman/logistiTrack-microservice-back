@@ -44,8 +44,10 @@ export class Package {
   @Column({
     name: 'address_detail',
     type: 'varchar',
+    nullable: true,
+    default: null,
   })
-  addressDetail!: string;
+  addressDetail!: string | null;
 
   @Column({
     type: 'enum',
@@ -57,12 +59,16 @@ export class Package {
   @Column({
     name: 'courier_id',
     type: 'uuid',
+    nullable: true,
+    default: null,
   })
   courierId!: string;
 
   @Column({
     name: 'delivered_at',
     type: 'timestamp',
+    nullable: true,
+    default: null,
   })
   deliveredAt!: Date;
 
