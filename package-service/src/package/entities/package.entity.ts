@@ -62,7 +62,7 @@ export class Package {
     nullable: true,
     default: null,
   })
-  courierId!: string;
+  courierId!: string | null;
 
   @Column({
     name: 'delivered_at',
@@ -70,7 +70,7 @@ export class Package {
     nullable: true,
     default: null,
   })
-  deliveredAt!: Date;
+  deliveredAt!: Date | null;
 
   @CreateDateColumn({
     name: 'created_at',
