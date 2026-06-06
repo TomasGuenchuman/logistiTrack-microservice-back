@@ -5,6 +5,17 @@ import { RedisService } from '../redis/redis.service';
 import * as bcrypt from 'bcrypt';
 import { randomUUID } from 'crypto';
 
+
+// Definición del contrato
+export interface AuthResponse {
+  access_token: string;
+  refresh_token: string;
+  user: {
+    id: string;
+    email: string;
+  };
+}
+
 @Injectable()
 export class AuthService {
   constructor(
@@ -13,7 +24,7 @@ export class AuthService {
     private readonly redisService: RedisService,
   ) {}
 
-  async login(email: string, pass: string) {
+  async login(email: string, pass: string): Promise<AuthResponse> {
     // busco al usuario por su email
     const user = await this.usersService.findOneByEmail(email);
     if (!user) {
@@ -34,7 +45,12 @@ export class AuthService {
     const refresh_token = await this.jwtService.signAsync(payload, { expiresIn: '7d' });
 
     await this.redisService.saveSession(user.id.toString(), sessionId, 604800); // 7 días en segundos
-    
+
+    await this.redisService.publish('user_sessions', JSON.stringify({
+      userId: user.id.toString(),
+      action: 'FORCE_LOGOUT'
+    }));
+
     return {
       access_token,
       refresh_token,
