@@ -6,6 +6,8 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
+    "seed:packages": "ts-node -r tsconfig-paths/register src/seed.ts",
+    "unseed:packages": "ts-node -r tsconfig-paths/register src/unseed.ts",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
