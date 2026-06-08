@@ -42,19 +42,19 @@ export class Package {
   address!: string;
 
   @Column({
+    type: 'enum',
+    enum: PackageStatus,
+    default: PackageStatus.PENDING,
+  })
+  status!: PackageStatus;
+
+  @Column({
     name: 'address_detail',
     type: 'varchar',
     nullable: true,
     default: null,
   })
   addressDetail!: string | null;
-
-  @Column({
-    type: 'enum',
-    enum: PackageStatus,
-    default: PackageStatus.PENDING,
-  })
-  status!: PackageStatus;
 
   @Column({
     name: 'courier_id',

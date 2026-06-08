@@ -1,5 +1,3 @@
-// src/packages/packages-gateway.service.ts
-
 import {
   BadGatewayException,
   Injectable,
