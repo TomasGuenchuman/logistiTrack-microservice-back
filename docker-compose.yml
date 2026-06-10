@@ -47,6 +47,98 @@ services:
     ports:
       - "6379:6379"
 
+  auth-service:
+    build:
+      context: ./auth-service
+    container_name: auth_service
+    restart: always
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./auth-service:/app
+      - /app/node_modules
+    environment:
+      PORT: 3001
+      DB_HOST: auth_db
+      DB_PORT: 5432
+      DB_USERNAME: auth_user
+      DB_PASSWORD: auth_password
+      DB_DATABASE: auth_db
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    depends_on:
+      - auth_db
+      - redis
+
+  package-service:
+    build:
+      context: ./package-service
+    container_name: package_service
+    restart: always
+    ports:
+      - "3002:3002"
+    volumes:
+      - ./package-service:/app
+      - /app/node_modules
+    environment:
+      PORT: 3002
+      DB_HOST: package_db
+      DB_PORT: 5432
+      DB_USERNAME: package_user
+      DB_PASSWORD: package_password
+      DB_DATABASE: package_db
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    depends_on:
+      - package_db
+      - redis
+
+  verification-service:
+    build:
+      context: ./verification-service
+    container_name: verification_service
+    restart: always
+    ports:
+      - "3003:3003"
+    volumes:
+      - ./verification-service:/app
+      - /app/node_modules
+    environment:
+      PORT: 3003
+      DB_HOST: verification_db
+      DB_PORT: 5432
+      DB_USERNAME: verification_user
+      DB_PASSWORD: verification_password
+      DB_DATABASE: verification_db
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    depends_on:
+      - verification_db
+      - redis
+
+  api-gateway:
+    build:
+      context: ./api-gateway
+    container_name: api_gateway
+    restart: always
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./api-gateway:/app
+      - /app/node_modules
+    environment:
+      PORT: 3000
+      AUTH_SERVICE_URL: http://auth-service:3001
+      PACKAGE_SERVICE_URL: http://package-service:3002
+      VERIFICATION_SERVICE_URL: http://verification-service:3003
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    depends_on:
+      - auth-service
+      - package-service
+      - verification-service
+      - redis
+
 volumes:
   auth_db_data:
   package_db_data:
