@@ -24,6 +24,7 @@ async function bootstrap() {
   // Uso Partial<Package> para no tener que llenar todos los
   // campos, usando su autogeneración (ej: id, createdAt, updatedAt)
   const packages: Partial<Package>[] = [
+    // 4 Paquetes de user: courier@logistitrack.com
     {
       trackingCode: 'PKG-001-QR',
       recipientName: 'Juan Pérez',
@@ -31,6 +32,7 @@ async function bootstrap() {
       address: 'Av. Corrientes 1234',
       status: PackageStatus.PENDING,
       addressDetail: 'Piso 2 Depto. 3',
+      courierId: '387bb38c-7c58-4e81-a0b2-bcf6cb7b0428',
     },
     {
       trackingCode: 'PKG-002-QR',
@@ -39,6 +41,7 @@ async function bootstrap() {
       address: 'San Martín 456',
       status: PackageStatus.PENDING,
       addressDetail: 'Casa 10',
+      courierId: '387bb38c-7c58-4e81-a0b2-bcf6cb7b0428',
     },
     {
       trackingCode: 'PKG-003-QR',
@@ -47,15 +50,7 @@ async function bootstrap() {
       address: 'Belgrano 789',
       status: PackageStatus.IN_TRANSIT,
       addressDetail: 'Piso 2 Depto. 3',
-      courierId: '11111111-1111-1111-1111-111111111111',
-    },
-    {
-      trackingCode: 'PKG-004-QR',
-      recipientName: 'Ana Rodríguez',
-      recipientDocument: '33444555',
-      address: 'Mitre 101',
-      status: PackageStatus.IN_TRANSIT,
-      courierId: '11111111-1111-1111-1111-111111111111',
+      courierId: '387bb38c-7c58-4e81-a0b2-bcf6cb7b0428',
     },
     {
       trackingCode: 'PKG-005-QR',
@@ -63,19 +58,12 @@ async function bootstrap() {
       recipientDocument: '29999111',
       address: 'Rivadavia 202',
       status: PackageStatus.DELIVERED,
-      courierId: '11111111-1111-1111-1111-111111111111',
+      courierId: '387bb38c-7c58-4e81-a0b2-bcf6cb7b0428',
       deliveredAt: new Date(),
     },
-    {
-      trackingCode: 'PKG-006-QR',
-      recipientName: 'Laura Fernández',
-      recipientDocument: '27888777',
-      address: 'Sarmiento 303',
-      status: PackageStatus.DELIVERED,
-      addressDetail: 'Piso 2 - Depto. 5',
-      courierId: '22222222-2222-2222-2222-222222222222',
-      deliveredAt: new Date(),
-    },
+
+    // 3 Paquetes de user: ejemplo@logistitrack.com
+
     {
       trackingCode: 'PKG-007-QR',
       recipientName: 'Miguel Torres',
@@ -83,6 +71,7 @@ async function bootstrap() {
       address: 'Lavalle 404',
       status: PackageStatus.PENDING,
       addressDetail: 'Casa 5 - Color azul',
+      courierId: '468855e9-58c3-4b98-af2b-dac0afc680b1',
     },
     {
       trackingCode: 'PKG-008-QR',
@@ -91,14 +80,7 @@ async function bootstrap() {
       address: 'Alsina 505',
       status: PackageStatus.PENDING,
       addressDetail: 'Piso 3 - Depto. 8',
-    },
-    {
-      trackingCode: 'PKG-009-QR',
-      recipientName: 'Lucía Castro',
-      recipientDocument: '37777222',
-      address: 'Pueyrredón 606',
-      status: PackageStatus.IN_TRANSIT,
-      courierId: '22222222-2222-2222-2222-222222222222',
+      courierId: '468855e9-58c3-4b98-af2b-dac0afc680b1',
     },
     {
       trackingCode: 'PKG-010-QR',
@@ -106,7 +88,36 @@ async function bootstrap() {
       recipientDocument: '38888111',
       address: 'Callao 707',
       status: PackageStatus.DELIVERED,
-      courierId: '22222222-2222-2222-2222-222222222222',
+      courierId: '468855e9-58c3-4b98-af2b-dac0afc680b1',
+      deliveredAt: new Date(),
+    },
+
+    // 3 Paquetes de user: prueba@logistitrack.com
+
+    {
+      trackingCode: 'PKG-004-QR',
+      recipientName: 'Ana Rodríguez',
+      recipientDocument: '33444555',
+      address: 'Mitre 101',
+      status: PackageStatus.PENDING,
+      courierId: '391fa1ea-c87e-4b01-8795-f12b4b07a3fb',
+    },
+    {
+      trackingCode: 'PKG-009-QR',
+      recipientName: 'Lucía Castro',
+      recipientDocument: '37777222',
+      address: 'Pueyrredón 606',
+      status: PackageStatus.PENDING,
+      courierId: '391fa1ea-c87e-4b01-8795-f12b4b07a3fb',
+    },
+    {
+      trackingCode: 'PKG-006-QR',
+      recipientName: 'Laura Fernández',
+      recipientDocument: '27888777',
+      address: 'Sarmiento 303',
+      status: PackageStatus.DELIVERED,
+      addressDetail: 'Piso 2 - Depto. 5',
+      courierId: '391fa1ea-c87e-4b01-8795-f12b4b07a3fb',
       deliveredAt: new Date(),
     },
   ];
