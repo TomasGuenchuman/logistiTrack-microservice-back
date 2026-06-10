@@ -5,7 +5,6 @@ import { RedisService } from '../redis/redis.service';
 import * as bcrypt from 'bcrypt';
 import { randomUUID } from 'crypto';
 
-
 // Definición del contrato
 export interface AuthResponse {
   access_token: string;
@@ -30,7 +29,6 @@ export class AuthService {
     if (!user) {
       throw new UnauthorizedException('Credenciales incorrectas');
     }
-
     // comparo la contraseña enviada con el hash de la BBDD
     const isPasswordValid = await bcrypt.compare(pass, user.password);
     if (!isPasswordValid) {
@@ -41,15 +39,22 @@ export class AuthService {
     const sessionId = randomUUID();
     const payload = { sub: user.id, email: user.email, sessionId };
 
-    const access_token = await this.jwtService.signAsync(payload, { expiresIn: '40m' });
-    const refresh_token = await this.jwtService.signAsync(payload, { expiresIn: '7d' });
+    const access_token = await this.jwtService.signAsync(payload, {
+      expiresIn: '40m',
+    });
+    const refresh_token = await this.jwtService.signAsync(payload, {
+      expiresIn: '7d',
+    });
 
     await this.redisService.saveSession(user.id.toString(), sessionId, 604800); // 7 días en segundos
 
-    await this.redisService.publish('user_sessions', JSON.stringify({
-      userId: user.id.toString(),
-      action: 'FORCE_LOGOUT'
-    }));
+    await this.redisService.publish(
+      'user_sessions',
+      JSON.stringify({
+        userId: user.id.toString(),
+        action: 'FORCE_LOGOUT',
+      }),
+    );
 
     return {
       access_token,
@@ -57,7 +62,7 @@ export class AuthService {
       user: {
         id: user.id,
         email: user.email,
-      }
+      },
     };
   }
 
@@ -67,7 +72,9 @@ export class AuthService {
       const payload = await this.jwtService.verifyAsync(refreshToken);
 
       // busco en Redis si la sesión de este usuario sigue activa
-      const activeSession = await this.redisService.getActiveSession(payload.sub.toString());
+      const activeSession = await this.redisService.getActiveSession(
+        payload.sub.toString(),
+      );
 
       // comparo si la sesion cerró o no coincide, y si es asi bloqueo el paso
       if (!activeSession || activeSession !== payload.sessionId) {
@@ -75,8 +82,14 @@ export class AuthService {
       }
 
       // si todo esta bien, genero el nuevo access token de 40 minutos
-      const newPayload = { sub: payload.sub, email: payload.email, sessionId: payload.sessionId };
-      const newAccessToken = await this.jwtService.signAsync(newPayload, { expiresIn: '40m' });
+      const newPayload = {
+        sub: payload.sub,
+        email: payload.email,
+        sessionId: payload.sessionId,
+      };
+      const newAccessToken = await this.jwtService.signAsync(newPayload, {
+        expiresIn: '40m',
+      });
 
       return {
         access_token: newAccessToken,
@@ -89,7 +102,7 @@ export class AuthService {
   async logout(userId: string) {
     // borro la sesion de Redis para invalidar cualquier refresh token
     await this.redisService.deleteSession(userId.toString());
-    
+
     return { message: 'Sesión cerrada exitosamente' };
   }
 }

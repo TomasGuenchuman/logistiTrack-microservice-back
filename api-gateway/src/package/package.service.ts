@@ -1,5 +1,3 @@
-// src/packages/packages-gateway.service.ts
-
 import {
   BadGatewayException,
   Injectable,
@@ -123,7 +121,6 @@ export class PackageService {
           updatePackageStatusDto,
         ),
       );
-
       return response.data;
     } catch (error) {
       this.handleHttpError(error);
