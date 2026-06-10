@@ -10,7 +10,6 @@ export class RedisService {
     // 'EX' le dice a Redis: "Destruí este dato automáticamente cuando pasen los segundos del TTL"
     await this.redisClient.set(`session:${userId}`, sessionId, 'EX', ttlInSeconds);
   }
-
   // Busca el sessionId activo de un usuario
   async getActiveSession(userId: string): Promise<string | null> {
     return this.redisClient.get(`session:${userId}`);
@@ -20,4 +19,9 @@ export class RedisService {
   async deleteSession(userId: string): Promise<void> {
     await this.redisClient.del(`session:${userId}`);
   }
+
+  async publish(channel: string, message: string): Promise<number> {
+    return await this.redisClient.publish(channel, message);
+  }
+
 }
