@@ -1,5 +1,3 @@
-// src/package/package.controller.ts
-
 import {
   Body,
   Controller,
@@ -35,6 +33,11 @@ export class PackageController {
     return this.packageService.findAll();
   }
 
+  @Get(':id')
+  findOne(@Param('id', new ParseUUIDPipe()) id: string) {
+    return this.packageService.findOne(id);
+  }
+
   @Get('tracking/:trackingCode')
   findByTrackingCode(@Param('trackingCode') trackingCode: string) {
     return this.packageService.findByTrackingCode(trackingCode);
@@ -43,11 +46,6 @@ export class PackageController {
   @Get('courier/:courierId')
   findByCourierId(@Param('courierId', new ParseUUIDPipe()) courierId: string) {
     return this.packageService.findByCourierId(courierId);
-  }
-
-  @Get(':id')
-  findOne(@Param('id', new ParseUUIDPipe()) id: string) {
-    return this.packageService.findOne(id);
   }
 
   @Patch(':id')

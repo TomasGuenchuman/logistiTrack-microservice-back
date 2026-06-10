@@ -121,7 +121,6 @@ export class PackageService {
           updatePackageStatusDto,
         ),
       );
-
       return response.data;
     } catch (error) {
       this.handleHttpError(error);
