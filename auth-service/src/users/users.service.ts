@@ -15,4 +15,11 @@ export class UsersService {
       where: { email },
     });
   }
+
+  async findAll(): Promise<User[]> {
+    // El método find() sin argumentos equivale a un "SELECT * FROM tabla"
+    const users = await this.userRepository.find();
+    
+    return users;
+  }
 }

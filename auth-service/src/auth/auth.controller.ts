@@ -1,4 +1,12 @@
-import { Body, Controller, HttpCode, HttpStatus, Post, UnauthorizedException, BadRequestException } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Post,
+  UnauthorizedException,
+  BadRequestException,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 
@@ -23,7 +31,7 @@ export class AuthController {
   @Post('logout')
   logout(@Body('userId') userId: string) {
     if (!userId) {
-      throw new BadRequestException('El userId es requerido'); 
+      throw new BadRequestException('El userId es requerido');
     }
     return this.authService.logout(userId);
   }
