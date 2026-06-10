@@ -24,7 +24,7 @@ import { AppController } from './app.controller';
       entities: [User],
       synchronize: true,
     }),
-    
+
     RedisModule,
     UsersModule,
     AuthModule,
