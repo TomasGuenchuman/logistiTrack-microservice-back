@@ -25,7 +25,7 @@ async function bootstrap() {
   // campos, usando su autogeneración (ej: id, createdAt, updatedAt)
   const packages: Partial<Package>[] = [
     {
-      trackingCode: 'PKG-001',
+      trackingCode: 'PKG-001-QR',
       recipientName: 'Juan Pérez',
       recipientDocument: '30111222',
       address: 'Av. Corrientes 1234',
@@ -33,7 +33,7 @@ async function bootstrap() {
       addressDetail: 'Piso 2 Depto. 3',
     },
     {
-      trackingCode: 'PKG-002',
+      trackingCode: 'PKG-002-QR',
       recipientName: 'María Gómez',
       recipientDocument: '28999888',
       address: 'San Martín 456',
@@ -41,7 +41,7 @@ async function bootstrap() {
       addressDetail: 'Casa 10',
     },
     {
-      trackingCode: 'PKG-003',
+      trackingCode: 'PKG-003-QR',
       recipientName: 'Carlos López',
       recipientDocument: '32123456',
       address: 'Belgrano 789',
@@ -50,7 +50,7 @@ async function bootstrap() {
       courierId: '11111111-1111-1111-1111-111111111111',
     },
     {
-      trackingCode: 'PKG-004',
+      trackingCode: 'PKG-004-QR',
       recipientName: 'Ana Rodríguez',
       recipientDocument: '33444555',
       address: 'Mitre 101',
@@ -58,7 +58,7 @@ async function bootstrap() {
       courierId: '11111111-1111-1111-1111-111111111111',
     },
     {
-      trackingCode: 'PKG-005',
+      trackingCode: 'PKG-005-QR',
       recipientName: 'Pedro Sánchez',
       recipientDocument: '29999111',
       address: 'Rivadavia 202',
@@ -67,7 +67,7 @@ async function bootstrap() {
       deliveredAt: new Date(),
     },
     {
-      trackingCode: 'PKG-006',
+      trackingCode: 'PKG-006-QR',
       recipientName: 'Laura Fernández',
       recipientDocument: '27888777',
       address: 'Sarmiento 303',
@@ -77,7 +77,7 @@ async function bootstrap() {
       deliveredAt: new Date(),
     },
     {
-      trackingCode: 'PKG-007',
+      trackingCode: 'PKG-007-QR',
       recipientName: 'Miguel Torres',
       recipientDocument: '35555444',
       address: 'Lavalle 404',
@@ -85,7 +85,7 @@ async function bootstrap() {
       addressDetail: 'Casa 5 - Color azul',
     },
     {
-      trackingCode: 'PKG-008',
+      trackingCode: 'PKG-008-QR',
       recipientName: 'Sofía Díaz',
       recipientDocument: '36666333',
       address: 'Alsina 505',
@@ -93,7 +93,7 @@ async function bootstrap() {
       addressDetail: 'Piso 3 - Depto. 8',
     },
     {
-      trackingCode: 'PKG-009',
+      trackingCode: 'PKG-009-QR',
       recipientName: 'Lucía Castro',
       recipientDocument: '37777222',
       address: 'Pueyrredón 606',
@@ -101,7 +101,7 @@ async function bootstrap() {
       courierId: '22222222-2222-2222-2222-222222222222',
     },
     {
-      trackingCode: 'PKG-010',
+      trackingCode: 'PKG-010-QR',
       recipientName: 'Diego Romero',
       recipientDocument: '38888111',
       address: 'Callao 707',

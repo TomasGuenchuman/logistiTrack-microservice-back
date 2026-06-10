@@ -25,16 +25,16 @@ async function bootstrap() {
 
   await packageRepository.delete({
     trackingCode: In([
-      'PKG-001',
-      'PKG-002',
-      'PKG-003',
-      'PKG-004',
-      'PKG-005',
-      'PKG-006',
-      'PKG-007',
-      'PKG-008',
-      'PKG-009',
-      'PKG-010',
+      'PKG-001-QR',
+      'PKG-002-QR',
+      'PKG-003-QR',
+      'PKG-004-QR',
+      'PKG-005-QR',
+      'PKG-006-QR',
+      'PKG-007-QR',
+      'PKG-008-QR',
+      'PKG-009-QR',
+      'PKG-010-QR',
     ]),
   });
 
