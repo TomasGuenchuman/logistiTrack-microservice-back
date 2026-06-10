@@ -57,15 +57,8 @@ services:
     volumes:
       - ./auth-service:/app
       - /app/node_modules
-    environment:
-      PORT: 3001
-      DB_HOST: auth_db
-      DB_PORT: 5432
-      DB_USERNAME: auth_user
-      DB_PASSWORD: auth_password
-      DB_DATABASE: auth_db
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
+    env_file:
+      - ./auth-service/.env
     depends_on:
       - auth_db
       - redis
@@ -80,15 +73,8 @@ services:
     volumes:
       - ./package-service:/app
       - /app/node_modules
-    environment:
-      PORT: 3002
-      DB_HOST: package_db
-      DB_PORT: 5432
-      DB_USERNAME: package_user
-      DB_PASSWORD: package_password
-      DB_DATABASE: package_db
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
+    env_file:
+      - ./package-service/.env
     depends_on:
       - package_db
       - redis
@@ -103,15 +89,8 @@ services:
     volumes:
       - ./verification-service:/app
       - /app/node_modules
-    environment:
-      PORT: 3003
-      DB_HOST: verification_db
-      DB_PORT: 5432
-      DB_USERNAME: verification_user
-      DB_PASSWORD: verification_password
-      DB_DATABASE: verification_db
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
+    env_file:
+      - ./verification-service/.env
     depends_on:
       - verification_db
       - redis
@@ -126,13 +105,8 @@ services:
     volumes:
       - ./api-gateway:/app
       - /app/node_modules
-    environment:
-      PORT: 3000
-      AUTH_SERVICE_URL: http://auth-service:3001
-      PACKAGE_SERVICE_URL: http://package-service:3002
-      VERIFICATION_SERVICE_URL: http://verification-service:3003
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
+    env_file:
+      - ./api-gateway/.env
     depends_on:
       - auth-service
       - package-service
