@@ -7,6 +7,7 @@ import {
 import { Server, Socket } from 'socket.io';
 import { Inject, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import { Redis } from 'ioredis';
+import { JwtService } from '@nestjs/jwt';
 
 @WebSocketGateway({ cors: true })
 export class NotificationsGateway
@@ -15,13 +16,14 @@ export class NotificationsGateway
   @WebSocketServer()
   server!: Server;
 
-  private userSockets: Map<string, string> = new Map();
+  private userSockets: Map<string, Map<string,string>> = new Map();
 
   private redisSubscriber: Redis;
 
   constructor(
     @Inject('REDIS_CLIENT')
     private readonly redisClient: Redis,
+    private readonly jwtService: JwtService,
   ) {
     /**
      * Importante:
@@ -56,31 +58,44 @@ export class NotificationsGateway
   }
 
   handleConnection(client: Socket) {
-    const userId = client.handshake.query.userId as string;
+    try {
+      const token = client.handshake.auth.token;
+      const payload = this.jwtService.verify(token);
+      const userId = payload.sub;
+      const deviceId = client.handshake.query.deviceId as string;
 
-    if (userId) {
-      this.userSockets.set(userId, client.id);
-      console.log(`Usuario ${userId} conectado con socket ${client.id}`);
+      if (!this.userSockets.has(userId)) {
+        this.userSockets.set(userId, new Map());
+      }
+      this.userSockets.get(userId)!.set(deviceId, client.id);
+    } catch (error) {
+      client.disconnect();
     }
   }
 
   handleDisconnect(client: Socket) {
-    for (const [userId, socketId] of this.userSockets.entries()) {
-      if (socketId === client.id) {
-        this.userSockets.delete(userId);
-        console.log(`Usuario ${userId} desconectado`);
-        break;
+    for (const [userId, deviceSockets] of this.userSockets.entries()) {
+      for (const [deviceId, socketId] of deviceSockets.entries()) {
+        if (socketId === client.id) {
+          deviceSockets.delete(deviceId);
+          if (deviceSockets.size === 0) {
+            this.userSockets.delete(userId);
+          }
+          return;
+        }
       }
     }
   }
 
-  sendForceLogout(userId: string) {
-    const socketId = this.userSockets.get(userId);
+  sendForceLogout(userId: string, exceptDevice?: string) {
+    const deviceSockets = this.userSockets.get(userId);
+      if (!deviceSockets) return;
 
-    if (socketId) {
-      this.server.to(socketId).emit('force_logout', {
-        message: 'Sesión cerrada por nuevo inicio de sesión',
-      });
-    }
+      for (const [deviceId, socketId] of deviceSockets.entries()) {
+        if (deviceId === exceptDevice) continue;
+        this.server.to(socketId).emit('force_logout', {
+          message: 'Sesión cerrada por nuevo inicio de sesión'
+        });
+      }
   }
 }
