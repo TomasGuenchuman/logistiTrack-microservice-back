@@ -47,7 +47,7 @@ export class NotificationsGateway
         const data = JSON.parse(message);
 
         if (data.action === 'FORCE_LOGOUT') {
-          this.sendForceLogout(data.userId);
+          this.sendForceLogout(data.userId,data.exceptDevice);
         }
       }
     });
