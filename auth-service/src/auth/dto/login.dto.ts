@@ -8,8 +8,4 @@ export class LoginDto {
   @IsString()
   @IsNotEmpty({ message: 'La contraseña es obligatoria' })
   password!: string;
-
-  @IsString()
-  @IsNotEmpty()
-  deviceId!: string;
 }

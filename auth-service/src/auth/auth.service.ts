@@ -24,7 +24,7 @@ export class AuthService {
   ) {}
 
   async login(loginData): Promise<AuthResponse> {
-    const { email, password, deviceId } = loginData;
+    const { email, password } = loginData;
     // busco al usuario por su email
     const user = await this.usersService.findOneByEmail(email);
     if (!user) {
@@ -54,7 +54,6 @@ export class AuthService {
       JSON.stringify({
         userId: user.id.toString(),
         action: 'FORCE_LOGOUT',
-        exceptDevice: deviceId,
       }),
     );
 
