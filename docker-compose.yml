@@ -47,6 +47,72 @@ services:
     ports:
       - "6379:6379"
 
+  auth-service:
+    build:
+      context: ./auth-service
+    container_name: auth_service
+    restart: always
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./auth-service:/app
+      - /app/node_modules
+    env_file:
+      - ./auth-service/.env
+    depends_on:
+      - auth_db
+      - redis
+
+  package-service:
+    build:
+      context: ./package-service
+    container_name: package_service
+    restart: always
+    ports:
+      - "3002:3002"
+    volumes:
+      - ./package-service:/app
+      - /app/node_modules
+    env_file:
+      - ./package-service/.env
+    depends_on:
+      - package_db
+      - redis
+
+  verification-service:
+    build:
+      context: ./verification-service
+    container_name: verification_service
+    restart: always
+    ports:
+      - "3003:3003"
+    volumes:
+      - ./verification-service:/app
+      - /app/node_modules
+    env_file:
+      - ./verification-service/.env
+    depends_on:
+      - verification_db
+      - redis
+
+  api-gateway:
+    build:
+      context: ./api-gateway
+    container_name: api_gateway
+    restart: always
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./api-gateway:/app
+      - /app/node_modules
+    env_file:
+      - ./api-gateway/.env
+    depends_on:
+      - auth-service
+      - package-service
+      - verification-service
+      - redis
+
 volumes:
   auth_db_data:
   package_db_data:
