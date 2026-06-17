@@ -48,15 +48,6 @@ export class AuthService {
     });
 
     await this.redisService.saveSession(user.id.toString(), sessionId, 604800); // 7 días en segundos
-
-    await this.redisService.publish(
-      'user_sessions',
-      JSON.stringify({
-        userId: user.id.toString(),
-        action: 'FORCE_LOGOUT',
-      }),
-    );
-
     return {
       access_token,
       refresh_token,
