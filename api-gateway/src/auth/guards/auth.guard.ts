@@ -1,4 +1,9 @@
-import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  CanActivate,
+  ExecutionContext,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 import { RedisService } from '../../redis/redis.service';
@@ -15,7 +20,9 @@ export class AuthGuard implements CanActivate {
     const token = this.extractTokenFromHeader(request);
 
     if (!token) {
-      throw new UnauthorizedException('Acceso denegado: Token no proporcionado');
+      throw new UnauthorizedException(
+        'Acceso denegado: Token no proporcionado',
+      );
     }
 
     try {
@@ -23,12 +30,16 @@ export class AuthGuard implements CanActivate {
       const payload = await this.jwtService.verifyAsync(token);
 
       // 2. Buscamos en Redis si este usuario (payload.sub) tiene una sesión activa
-      const activeSession = await this.redisService.getActiveSession(payload.sub.toString());
+      const activeSession = await this.redisService.getActiveSession(
+        payload.sub.toString(),
+      );
 
-      // 3. LA GUILLOTINA: Comparamos el "tubo". Si lo cerraron o alguien inició sesión
+      // 3. Comparamos el "tubo". Si lo cerraron o alguien inició sesión
       // en otro lado (y pisó el ID en Redis), bloqueamos el paso al instante.
       if (!activeSession || activeSession !== payload.sessionId) {
-        throw new UnauthorizedException('Sesión caducada o iniciada en otro dispositivo');
+        throw new UnauthorizedException(
+          'Sesión caducada o iniciada en otro dispositivo',
+        );
       }
 
       // Si pasa los controles, le pegamos los datos a la request y lo dejamos pasar
