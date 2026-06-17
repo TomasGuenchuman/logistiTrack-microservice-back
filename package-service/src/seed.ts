@@ -130,7 +130,7 @@ async function bootstrap() {
       status: PackageStatus.PENDING,
       addressDetail: 'Mansión 10',
       courierId: null,
-      deliveredAt: new Date(),
+      deliveredAt: null,
     },
     {
       trackingCode: 'PKG-012-QR',
@@ -140,7 +140,7 @@ async function bootstrap() {
       status: PackageStatus.PENDING,
       addressDetail: '',
       courierId: null,
-      deliveredAt: new Date(),
+      deliveredAt: null,
     },
     {
       trackingCode: 'PKG-013-QR',
@@ -150,7 +150,7 @@ async function bootstrap() {
       status: PackageStatus.PENDING,
       addressDetail: '',
       courierId: null,
-      deliveredAt: new Date(),
+      deliveredAt: null,
     },
     {
       trackingCode: 'PKG-014-QR',
@@ -160,7 +160,7 @@ async function bootstrap() {
       status: PackageStatus.PENDING,
       addressDetail: '',
       courierId: null,
-      deliveredAt: new Date(),
+      deliveredAt: null,
     },
     {
       trackingCode: 'PKG-015-QR',
@@ -170,7 +170,7 @@ async function bootstrap() {
       status: PackageStatus.PENDING,
       addressDetail: '',
       courierId: null,
-      deliveredAt: new Date(),
+      deliveredAt: null,
     },
     {
       trackingCode: 'PKG-016-QR',
@@ -180,7 +180,7 @@ async function bootstrap() {
       status: PackageStatus.PENDING,
       addressDetail: '',
       courierId: null,
-      deliveredAt: new Date(),
+      deliveredAt: null,
     },
   ];
 
