@@ -32,7 +32,7 @@ async function bootstrap() {
       address: 'Gobernador Paz 13',
       status: PackageStatus.PENDING,
       addressDetail: 'Piso 2 Depto. 3',
-      courierId: '387bb38c-7c58-4e81-a0b2-bcf6cb7b0428',
+      courierId: '11111111-11111111-11111111-11111111',
     },
     {
       trackingCode: 'PKG-002-QR',
@@ -41,7 +41,7 @@ async function bootstrap() {
       address: '12 de Octubre 12',
       status: PackageStatus.PENDING,
       addressDetail: 'Piso 2 Depto. 3',
-      courierId: '387bb38c-7c58-4e81-a0b2-bcf6cb7b0428',
+      courierId: '11111111-11111111-11111111-11111111',
     },
     {
       trackingCode: 'PKG-003-QR',
@@ -50,7 +50,7 @@ async function bootstrap() {
       address: 'Tolhuin 23',
       status: PackageStatus.IN_TRANSIT,
       addressDetail: 'Casa 23',
-      courierId: '387bb38c-7c58-4e81-a0b2-bcf6cb7b0428',
+      courierId: '11111111-11111111-11111111-11111111',
     },
     {
       trackingCode: 'PKG-004-QR',
@@ -58,7 +58,7 @@ async function bootstrap() {
       recipientDocument: '10101010',
       address: 'Rio Grande 10',
       status: PackageStatus.DELIVERED,
-      courierId: '387bb38c-7c58-4e81-a0b2-bcf6cb7b0428',
+      courierId: '11111111-11111111-11111111-11111111',
       deliveredAt: new Date(),
     },
 
@@ -71,7 +71,7 @@ async function bootstrap() {
       address: 'Maipú 9',
       status: PackageStatus.PENDING,
       addressDetail: 'Casa 5 - Color azul',
-      courierId: '468855e9-58c3-4b98-af2b-dac0afc680b1',
+      courierId: '22222222-22222222-22222222-22222222',
     },
     {
       trackingCode: 'PKG-006-QR',
@@ -80,7 +80,7 @@ async function bootstrap() {
       address: 'Marcos Vera 100',
       status: PackageStatus.PENDING,
       addressDetail: 'Piso 3 - Depto. 8',
-      courierId: '468855e9-58c3-4b98-af2b-dac0afc680b1',
+      courierId: '22222222-22222222-22222222-22222222',
     },
     {
       trackingCode: 'PKG-007-QR',
@@ -88,7 +88,7 @@ async function bootstrap() {
       recipientDocument: '10100101',
       address: 'Maipú 100',
       status: PackageStatus.DELIVERED,
-      courierId: '468855e9-58c3-4b98-af2b-dac0afc680b1',
+      courierId: '22222222-22222222-22222222-22222222',
       deliveredAt: new Date(),
     },
 
@@ -100,7 +100,7 @@ async function bootstrap() {
       recipientDocument: '29999111',
       address: 'Gobernador Campos 20',
       status: PackageStatus.PENDING,
-      courierId: '391fa1ea-c87e-4b01-8795-f12b4b07a3fb',
+      courierId: '33333333-33333333-33333333-33333333',
     },
     {
       trackingCode: 'PKG-009-QR',
@@ -108,7 +108,7 @@ async function bootstrap() {
       recipientDocument: '37777222',
       address: 'Perón Norte 100',
       status: PackageStatus.PENDING,
-      courierId: '391fa1ea-c87e-4b01-8795-f12b4b07a3fb',
+      courierId: '33333333-33333333-33333333-33333333',
     },
     {
       trackingCode: 'PKG-010-QR',
@@ -117,7 +117,7 @@ async function bootstrap() {
       address: 'San Martín 18',
       status: PackageStatus.DELIVERED,
       addressDetail: 'Piso 2 - Depto. 5',
-      courierId: '391fa1ea-c87e-4b01-8795-f12b4b07a3fb',
+      courierId: '33333333-33333333-33333333-33333333',
       deliveredAt: new Date(),
     },
 
