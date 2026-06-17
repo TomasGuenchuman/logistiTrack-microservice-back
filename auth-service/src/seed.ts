@@ -23,24 +23,29 @@ async function bootstrap() {
   const defaultPassword = await bcrypt.hash('Password123', 10);
 
   const users: Partial<User>[] = [
-    {
-      email: 'usuario@logistitrack.com',
-      password: defaultPassword,
-    },
+    // 4 paquetes asignados
     {
       email: 'courier@logistitrack.com',
       password: defaultPassword,
     },
+    // 3 paquetes asignados
     {
       email: 'ejemplo@logistitrack.com',
       password: defaultPassword,
     },
+    // 3 paquetes asignados
     {
       email: 'prueba@logistitrack.com',
       password: defaultPassword,
     },
+    // 0 paquetes asignados
     {
       email: 'test@logistitrack.com',
+      password: defaultPassword,
+    },
+    // 0 paquetes asignados
+    {
+      email: 'usuario@logistitrack.com',
       password: defaultPassword,
     },
   ];
