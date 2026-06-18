@@ -22,11 +22,11 @@ async function bootstrap() {
 
   await userRepository.delete({
     email: In([
-      'usuario@logistitrack.com',
       'courier@logistitrack.com',
       'ejemplo@logistitrack.com',
       'prueba@logistitrack.com',
       'test@logistitrack.com',
+      'usuario@logistitrack.com',
     ]),
   });
 
