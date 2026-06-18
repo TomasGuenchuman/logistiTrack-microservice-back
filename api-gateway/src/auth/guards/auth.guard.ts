@@ -1,4 +1,9 @@
-import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  CanActivate,
+  ExecutionContext,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 import { RedisService } from '../../redis/redis.service';
@@ -15,7 +20,9 @@ export class AuthGuard implements CanActivate {
     const token = this.extractTokenFromHeader(request);
 
     if (!token) {
-      throw new UnauthorizedException('Acceso denegado: Token no proporcionado');
+      throw new UnauthorizedException(
+        'Acceso denegado: Token no proporcionado',
+      );
     }
 
     try {
@@ -28,7 +35,9 @@ export class AuthGuard implements CanActivate {
       // Comparo si no hay sesión activa o si alguien inició sesión en otro dispositivo
       // en otro lado (y pisó el ID en Redis), bloqueamos el paso al instante.
       if (!activeSession || activeSession !== payload.sessionId) {
-        throw new UnauthorizedException('Sesión caducada o iniciada en otro dispositivo');
+        throw new UnauthorizedException(
+          'Sesión caducada o iniciada en otro dispositivo',
+        );
       }
 
       // Si pasa los controles, le pegamos los datos a la request y lo dejamos pasar

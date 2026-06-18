@@ -35,6 +35,12 @@ async function bootstrap() {
       'PKG-008-QR',
       'PKG-009-QR',
       'PKG-010-QR',
+      'PKG-011-QR',
+      'PKG-012-QR',
+      'PKG-013-QR',
+      'PKG-014-QR',
+      'PKG-015-QR',
+      'PKG-016-QR',
     ]),
   });
 
