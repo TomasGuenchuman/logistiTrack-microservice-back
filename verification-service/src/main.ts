@@ -14,14 +14,14 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, config);
 
-  // ¡AQUÍ SE DEFINE LA RUTA!
+  // ¡Aquí se define la ruta!
   // El primer argumento ('api') es el prefijo de la URL
   SwaggerModule.setup('api', app, document);
 
   const port = process.env.PORT || 3002;
   await app.listen(port);
 
-  console.log(`package-service HTTP running on http://localhost:${port}`);
+  console.log(`verification-service HTTP running on http://localhost:${port}`);
   console.log(`verification-service EMIT Redis events`);
 }
 bootstrap();

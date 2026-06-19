@@ -1,4 +1,8 @@
-import { Injectable, BadGatewayException, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  BadGatewayException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import { AxiosError } from 'axios';
@@ -6,7 +10,6 @@ import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class AuthService {
-
   private readonly authServiceUrl: string;
 
   constructor(
@@ -26,8 +29,6 @@ export class AuthService {
       const response = await firstValueFrom(
         this.httpService.post(`${this.authServiceUrl}/auth/login`, loginData),
       );
-      
-      console.log('A6 - login exitoso');
 
       return response.data;
     } catch (error) {
@@ -39,7 +40,10 @@ export class AuthService {
     try {
       const response = await firstValueFrom(
         // le pega a la ruta /auth/refresh del microservicio
-        this.httpService.post(`${this.authServiceUrl}/auth/refresh`, refreshData),
+        this.httpService.post(
+          `${this.authServiceUrl}/auth/refresh`,
+          refreshData,
+        ),
       );
 
       return response.data;
