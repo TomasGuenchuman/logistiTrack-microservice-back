@@ -138,6 +138,7 @@ export class PackagesService {
     }
 
     packageFound.status = PackageStatus.DELIVERED;
+    packageFound.deliveredAt = new Date();
 
     return this.packageRepository.save(packageFound);
   }
