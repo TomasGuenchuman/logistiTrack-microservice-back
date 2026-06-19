@@ -19,9 +19,4 @@ export class RedisService {
   async deleteSession(userId: string): Promise<void> {
     await this.redisClient.del(`session:${userId}`);
   }
-
-  async publish(channel: string, message: string): Promise<number> {
-    return await this.redisClient.publish(channel, message);
-  }
-
 }

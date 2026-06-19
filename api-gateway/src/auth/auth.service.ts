@@ -26,6 +26,8 @@ export class AuthService {
       const response = await firstValueFrom(
         this.httpService.post(`${this.authServiceUrl}/auth/login`, loginData),
       );
+      
+      console.log('A6 - login exitoso');
 
       return response.data;
     } catch (error) {

@@ -23,14 +23,15 @@ export class AuthService {
     private readonly redisService: RedisService,
   ) {}
 
-  async login(email: string, pass: string): Promise<AuthResponse> {
+  async login(loginData): Promise<AuthResponse> {
+    const { email, password } = loginData;
     // busco al usuario por su email
     const user = await this.usersService.findOneByEmail(email);
     if (!user) {
       throw new UnauthorizedException('Credenciales incorrectas');
     }
     // comparo la contraseña enviada con el hash de la BBDD
-    const isPasswordValid = await bcrypt.compare(pass, user.password);
+    const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       throw new UnauthorizedException('Credenciales incorrectas');
     }
@@ -47,15 +48,6 @@ export class AuthService {
     });
 
     await this.redisService.saveSession(user.id.toString(), sessionId, 604800); // 7 días en segundos
-
-    await this.redisService.publish(
-      'user_sessions',
-      JSON.stringify({
-        userId: user.id.toString(),
-        action: 'FORCE_LOGOUT',
-      }),
-    );
-
     return {
       access_token,
       refresh_token,

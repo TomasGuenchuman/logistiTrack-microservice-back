@@ -26,15 +26,13 @@ export class AuthGuard implements CanActivate {
     }
 
     try {
-      // 1. Desencriptamos el token. Si la firma es falsa o expiró, salta al catch.
+      // desencripto el token y si la firma es falsa o expiró, salta al catch.
       const payload = await this.jwtService.verifyAsync(token);
 
-      // 2. Buscamos en Redis si este usuario (payload.sub) tiene una sesión activa
-      const activeSession = await this.redisService.getActiveSession(
-        payload.sub.toString(),
-      );
+      // busco en Redis si este usuario (payload.sub) tiene una sesión activa
+      const activeSession = await this.redisService.getActiveSession(payload.sub.toString());
 
-      // 3. Comparamos el "tubo". Si lo cerraron o alguien inició sesión
+      // Comparo si no hay sesión activa o si alguien inició sesión en otro dispositivo
       // en otro lado (y pisó el ID en Redis), bloqueamos el paso al instante.
       if (!activeSession || activeSession !== payload.sessionId) {
         throw new UnauthorizedException(
